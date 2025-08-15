@@ -1,30 +1,29 @@
 import streamlit as st
 
 # --- 0. Streamlit 페이지 기본 설정 ---
-st.set_page_config(layout="wide", page_title="💖 두근두근 MBTI 궁합 탐험대 V2.0 💖")
+st.set_page_config(layout="wide", page_title="💖 두근두근 MBTI 궁합 탐험대 V2.1 💖")
 
-# --- 1. CSS 스타일링 및 장르별 테마 정의 ---
-# 배경색 변경을 위한 placeholder - 동적으로 채워집니다.
-BACKGROUND_COLOR_PLACEHOLDER = "#F0F8FF" # 기본 배경색 (앨리스블루)
-
-st.markdown(f"""
+# --- 1. CSS 스타일링 (이제 배경색이 바뀔 거예요! ✨) ---
+# 이 부분은 초기에 한 번만 로드되며, 선택된 배경색은 하단에서 동적으로 다시 주입됩니다.
+st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
 
-    body {{
-        background-color: {BACKGROUND_COLOR_PLACEHOLDER}; /* 사용자가 선택한 색상으로 동적 변경 */
-        color: #483D8B; /* 다크 슬레이트 블루 - 신비로운 느낌 */
+    body {
         font-family: 'Noto Sans KR', sans-serif;
-    }}
-    .stApp {{
-        background-image: linear-gradient(to bottom, {BACKGROUND_COLOR_PLACEHOLDER}, #ADD8E6); /* 그라데이션 베이스 */
+    }
+    .stApp { /* Streamlit의 메인 콘텐츠 영역 */
+        /* 기본 배경색은 아래 st.color_picker에 따라 동적으로 변경됩니다. */
+        /* 그라데이션 시작점 색상만 동적으로 바뀌도록 CSS를 재정의할 예정 */
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="60" opacity="0.1">✨💖⭐🌙</text></svg>');
         background-repeat: repeat;
-        background-blend-mode: overlay;
-    }}
-
-    .main-title {{
+        background-blend-mode: overlay; /* 이모티콘 배경이 아래 색상과 섞이도록 */
+        transition: background-color 0.5s ease; /* 색상 변경 시 부드럽게 전환 */
+    }
+    
+    /* 주요 컴포넌트들의 스타일은 그대로 유지 */
+    .main-title {
         font-family: 'Nanum Pen Script', cursive;
         font-size: 65px !important;
         font-weight: bold;
@@ -34,20 +33,20 @@ st.markdown(f"""
         margin-bottom: 30px;
         text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
         animation: pulse 1.5s infinite;
-    }}
-    @keyframes pulse {{
-        0% {{ transform: scale(1); }}
-        50% {{ transform: scale(1.05); }}
-        100% {{ transform: scale(1); }}
-    }}
-    .sub-title {{
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    .sub-title {
         font-size: 28px !important;
         font-weight: bold;
         color: #8A2BE2;
         text-align: center;
         margin-bottom: 20px;
-    }}
-    .section-header {{
+    }
+    .section-header {
         font-size: 25px !important;
         font-weight: bold;
         color: #EE82EE;
@@ -55,13 +54,13 @@ st.markdown(f"""
         margin-bottom: 15px;
         border-bottom: 2px dashed #FFDAB9;
         padding-bottom: 5px;
-    }}
-    .stSelectbox > label, .stRadio > label {{
+    }
+    .stSelectbox > label, .stRadio > label {
         font-size: 20px;
         font-weight: bold;
         color: #4682B4;
-    }}
-    .stButton > button {{
+    }
+    .stButton > button {
         background-color: #FFB6C1;
         color: white;
         font-weight: bold;
@@ -71,40 +70,40 @@ st.markdown(f"""
         box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
         font-size: 22px;
         transition: all 0.3s ease;
-    }}
-    .stButton > button:hover {{
+    }
+    .stButton > button:hover {
         background-color: #FF69B4;
         transform: translateY(-2px);
-    }}
-    .result-box {{
-        background-color: rgba(255, 255, 255, 0.8); /* 흰색 투명도 - 신비로운 안개 */
+    }
+    .result-box {
+        background-color: rgba(255, 255, 255, 0.8);
         border: 2px solid #DDA0DD;
         border-radius: 15px;
         padding: 30px;
         margin-top: 40px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }}
-    .result-header {{
+    }
+    .result-header {
         font-size: 35px;
         font-weight: bold;
         color: #9932CC;
         text-align: center;
         margin-bottom: 20px;
         animation: glow 1.5s infinite alternate;
-    }}
-    @keyframes glow {{
-        from {{ text-shadow: 0 0 5px #fff, 0 0 10px #DDA0DD; }}
-        to {{ text-shadow: 0 0 10px #fff, 0 0 20px #9932CC; }}
-    }}
-    .scenario-text {{
+    }
+    @keyframes glow {
+        from { text-shadow: 0 0 5px #fff, 0 0 10px #DDA0DD; }
+        to { text-shadow: 0 0 10px #fff, 0 0 20px #9932CC; }
+    }
+    .scenario-text {
         font-size: 18px;
         line-height: 1.8;
         color: #6A5ACD;
         margin-bottom: 15px;
         border-left: 5px solid #FFDAB9;
         padding-left: 10px;
-    }}
-    .mbti-type-info {{
+    }
+    .mbti-type-info {
         font-size: 16px;
         color: #5F9EA0;
         background-color: rgba(255, 250, 240, 0.7);
@@ -112,33 +111,33 @@ st.markdown(f"""
         border-radius: 8px;
         margin-top: 10px;
         margin-bottom: 20px;
-    }}
-    .compatibility-score {{
+    }
+    .compatibility-score {
         font-size: 45px;
         font-weight: bold;
-        color: #FF4500; /* 오렌지 레드 - 눈에 띄게 */
+        color: #FF4500;
         text-align: center;
         margin: 20px 0;
         text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    }}
-    .conflict-likelihood {{
+    }
+    .conflict-likelihood {
         font-size: 20px;
-        color: #B22222; /* 불길한 빨강 */
+        color: #B22222;
         font-weight: bold;
         text-align: center;
         margin-top: 15px;
         padding: 10px;
         border: 2px dashed #B22222;
         border-radius: 10px;
-    }}
+    }
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("<h1 class='main-title'>💖 두근두근 MBTI 궁합 탐험대 V2.0 💖</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='main-title'>💖 두근두근 MBTI 궁합 탐험대 V2.1 💖</h1>", unsafe_allow_html=True)
 st.markdown("<p class='sub-title'>나와 상대방의 MBTI를 선택하고, 우정과 사랑의 심층 궁합을 탐험해보세요! ✨</p>", unsafe_allow_html=True)
 st.write("---")
 
-# --- 2. MBTI 데이터 및 궁합 정보 (이전 분석 내용을 바탕으로 상세화) ---
+# --- 2. MBTI 데이터 및 궁합 정보 ---
 MBTI_TYPES = [
     "ISTJ", "ISFJ", "INFJ", "INTJ",
     "ISTP", "ISFP", "INFP", "INTP",
@@ -181,13 +180,27 @@ with col2:
 with col3:
     st.markdown("<p class='section-header'>🎨 테마 바꾸기 & 관계는? 🤝</p>", unsafe_allow_html=True)
     # 배경색 변경 컬러 피커
-    selected_bg_color = st.color_picker("배경색을 선택하세요:", BACKGROUND_COLOR_PLACEHOLDER)
+    # session_state를 사용하여 선택된 색상을 기억하고 초기값으로 사용합니다.
+    if 'bg_color' not in st.session_state:
+        st.session_state.bg_color = "#F0F8FF" # 기본 배경색 (앨리스블루)
+
+    selected_bg_color = st.color_picker("배경색을 선택하세요:", st.session_state.bg_color, key="color_picker")
+    st.session_state.bg_color = selected_bg_color # 선택된 색상을 session_state에 저장
     
-    # 선택된 배경색으로 CSS를 다시 주입합니다.
+    # 선택된 배경색으로 Streamlit 앱의 배경색을 동적으로 변경합니다.
+    # st.markdown을 통해 `body`와 `.stApp`의 background-color를 재정의합니다.
+    # 특히, .stApp의 background는 linear-gradient와 이모티콘 background-image가 동시에 적용될 수 있도록 조정했습니다.
     st.markdown(f"""
         <style>
-        body {{ background-color: {selected_bg_color}; }}
-        .stApp {{ background-image: linear-gradient(to bottom, {selected_bg_color}, #ADD8E6); }}
+        body {{
+            background-color: {st.session_state.bg_color}; /* 전체 body 배경색 변경 */
+            color: #483D8B; /* 텍스트 색상 유지 */
+        }}
+        .stApp {{
+            background: linear-gradient(to bottom, {st.session_state.bg_color}, #ADD8E6) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="60" opacity="0.1">✨💖⭐🌙</text></svg>');
+            background-repeat: repeat;
+            background-blend-mode: overlay; /* 오버레이로 색상과 이모티콘 섞이도록 */
+        }}
         </style>
     """, unsafe_allow_html=True)
 
@@ -196,84 +209,67 @@ with col3:
 st.write("---")
 
 # --- 4. 궁합 분석 함수 (심층 시나리오, 퍼센트, 싸울 가능성 포함) ---
-# 연구 기반의 '선호 지표 일치 여부'가 갈등 해결 전략에 미치는 영향 [【1】](https://m.blog.naver.com/callbina/222826727610) [【4】](https://blog.naver.com/yameshow/221618472150?viewType=pc) 등을 참고하여 지표를 설정
 def calculate_compatibility_metrics(mbti1, mbti2, r_type):
     # E/I, S/N, T/F, J/P 순서로 각 지표의 일치 여부 확인
     match_count = 0
     # True if different, False if same
-    diff_E_I = mbti1[0] != mbti2[0]
-    diff_S_N = mbti1[1] != mbti2[1]
-    diff_T_F = mbti1[2] != mbti2[2]
-    diff_J_P = mbti1[3] != mbti2[3]
+    # 주의: mbti 문자열 인덱싱! mbti1[0] = E/I, mbti1[1]=S/N, mbti1[2]=T/F, mbti1[3]=J/P
+    diff_E_I = (mbti1[0] != mbti2[0])
+    diff_S_N = (mbti1[1] != mbti2[1])
+    diff_T_F = (mbti1[2] != mbti2[2])
+    diff_J_P = (mbti1[3] != mbti2[3])
 
-    if mbti1[0] == mbti2[0]: match_count += 1 # E/I 일치
-    if mbti1[1] == mbti2[1]: match_count += 1 # S/N 일치
-    if mbti1[2] == mbti2[2]: match_count += 1 # T/F 일치
-    if mbti1[3] == mbti2[3]: match_count += 1 # J/P 일치
+    if mbti1[0] == mbti2[0]: match_count += 1
+    if mbti1[1] == mbti2[1]: match_count += 1
+    if mbti1[2] == mbti2[2]: match_count += 1
+    if mbti1[3] == mbti2[3]: match_count += 1
 
-    # --- 궁합 퍼센트 계산 (임의의 로직, 재미 및 해석의 차원) ---
-    # 실제 연구는 특정 지표의 차이가 관계에 미치는 경향을 분석하지만,
-    # '정확한' 퍼센트는 아니므로 '가상의 지표'임을 전제로 합니다.
-    base_score = 50 # 기본 점수
-    
-    # 4개 일치 (모든 지표 동일) -> 90-100% (매우 높은 이해도, 단점도 비슷)
-    if match_count == 4: compatibility_percent = 95
-    # 3개 일치 -> 80-90% (매우 좋음)
-    elif match_count == 3: compatibility_percent = 85
-    # 2개 일치 -> 60-80% (보통)
-    elif match_count == 2: compatibility_percent = 70
-    # 1개 일치 -> 40-60% (노력 필요)
-    elif match_count == 1: compatibility_percent = 55
-    # 0개 일치 (모든 지표 상반) -> 20-40% (많은 노력 필요, 그러나 강력한 상호 보완 가능성)
-    else: compatibility_percent = 35
+    # --- 궁합 퍼센트 계산 ---
+    # 지표 일치 개수에 따른 점수
+    compatibility_scores = {4: 95, 3: 85, 2: 70, 1: 55, 0: 35}
+    compatibility_percent = compatibility_scores[match_count]
 
     # --- '싸울 가능성' 및 갈등 해결 스타일 분석 ---
-    # S/N 차이: 감각형은 직관형을 비현실적, 직관형은 감각형을 사소한 것에 얽매인다고 볼 수 있음 [【4】](https://blog.naver.com/yameshow/221618472150?viewType=pc)
-    # T/F 차이: 사고형은 감정형을 비논리적, 감정형은 사고형을 비인간적이라고 느낄 수 있음 [【3】](https://blog.naver.com/gurwn1725/223965071644?fromRss=true&trackingCode=rss)
-    # J/P 차이: 계획형(J)과 즉흥형(P)은 의사결정 방식에서 갈등 [【3】](https://blog.naver.com/gurwn1725/223965071644?fromRss=true&trackingCode=rss)
-    conflict_likelihood_score = 0 # 0 (낮음) ~ 100 (매우 높음)
-    conflict_desc = ""
+    conflict_likelihood_score = 0
+    conflict_desc = []
 
-    if diff_T_F: # T와 F 차이는 갈등의 중요한 요인. 사고형(T)은 감정적인 반응에 불협화음을 느낄 수 있음 [【8】](https://rarity02.tistory.com/entry/%F0%9F%94%8D-MBTI-%EC%9C%A0%ED%98%95%EB%B3%84%EB%A1%9C-%ED%94%BC%ED%95%B4%EC%95%BC-%ED%95%A0-%EC%9D%B8%EA%B0%84%EA%B4%80%EA%B3%84-%EA%B0%88%EB%93%B1%EC%9D%84-%EC%A4%84%EC%9D%B4%EB%8A%94-%EB%B0%A9%EB%B2%95-%F0%9F%8C%9F)
+    # T/F 차이 (가장 큰 갈등 요인)
+    if diff_T_F:
         conflict_likelihood_score += 30
-        conflict_desc += "사고(T)/감정(F) 지표가 달라 의사결정 시 감정적인 측면과 논리적인 측면에서 차이로 인한 갈등이 생길 수 있어요. 서로의 접근 방식을 이해하려는 노력이 필요해요."
+        conflict_desc.append("사고(T)/감정(F) 지표가 달라 의사결정 시 감정적인 측면과 논리적인 측면에서 차이로 인한 갈등이 생길 수 있어요. 서로의 접근 방식을 이해하려는 노력이 필요해요.")
     else:
-        conflict_desc += "사고(T)/감정(F) 지표가 같아 중요한 결정을 내릴 때 비슷한 방식으로 접근하여 갈등이 적을 수 있어요."
+        conflict_desc.append("사고(T)/감정(F) 지표가 같아 중요한 결정을 내릴 때 비슷한 방식으로 접근하여 갈등이 적을 수 있어요.")
 
-    if diff_S_N: # S와 N 차이도 큰 갈등 요인.
+    # S/N 차이
+    if diff_S_N:
         conflict_likelihood_score += 25
-        if conflict_desc: conflict_desc += "\n"
-        conflict_desc += "감각(S)/직관(N) 지표가 달라 현실적이고 구체적인 것과 추상적이고 미래 지향적인 것 사이에서 시각 차이가 발생할 수 있어요. 상대의 관점을 존중하며 대화하는 것이 중요해요."
-    else: # N일치 커플은 의사소통이 더 원만하다는 연구 결과도 있음 [【1】](https://m.blog.naver.com/callbina/222826727610)
-        if conflict_desc: conflict_desc += "\n"
-        conflict_desc += "감각(S)/직관(N) 지표가 같아 세상을 이해하는 방식에서 유사점이 많아 갈등이 적을 수 있어요."
-
-    if diff_J_P: # J와 P 차이는 의사결정 방식의 차이 [【3】](https://blog.naver.com/gurwn1725/223965071644?fromRss=true&trackingCode=rss)
-        conflict_likelihood_score += 20
-        if conflict_desc: conflict_desc += "\n"
-        conflict_desc += "판단(J)/인식(P) 지표가 달라 계획성에서 차이가 있을 수 있어요. 한쪽은 체계적으로, 다른 쪽은 유연하게 접근하려 하여 다툼이 발생할 수도 있습니다."
+        conflict_desc.append("감각(S)/직관(N) 지표가 달라 현실적이고 구체적인 것과 추상적이고 미래 지향적인 것 사이에서 시각 차이가 발생할 수 있어요. 상대의 관점을 존중하며 대화하는 것이 중요해요.")
     else:
-        if conflict_desc: conflict_desc += "\n"
-        conflict_desc += "판단(J)/인식(P) 지표가 같아 의사결정이나 생활 패턴에서 유사점이 많아 갈등이 적을 수 있어요."
+        conflict_desc.append("감각(S)/직관(N) 지표가 같아 세상을 이해하는 방식에서 유사점이 많아 갈등이 적을 수 있어요.")
+
+    # J/P 차이
+    if diff_J_P:
+        conflict_likelihood_score += 20
+        conflict_desc.append("판단(J)/인식(P) 지표가 달라 계획성에서 차이가 있을 수 있어요. 한쪽은 체계적으로, 다른 쪽은 유연하게 접근하려 하여 다툼이 발생할 수도 있습니다.")
+    else:
+        conflict_desc.append("판단(J)/인식(P) 지표가 같아 의사결정이나 생활 패턴에서 유사점이 많아 갈등이 적을 수 있어요.")
     
-    if diff_E_I: # 외향(E)과 내향(I)의 차이는 의사소통 방식이나 에너지 충전 방식에 영향
+    # E/I 차이
+    if diff_E_I:
         conflict_likelihood_score += 15
-        if conflict_desc: conflict_desc += "\n"
-        conflict_desc += "외향(E)/내향(I) 지표가 달라 에너지를 얻는 방식이나 사회적 교류의 선호도에서 차이가 있을 수 있어요. 서로의 휴식 및 활력 충전 방식을 이해해주는 배려가 필요해요."
-    else: # 외향형 커플이 갈등 해결에 더 긍정적이라는 경향도 있음 [【1】](https://m.blog.naver.com/callbina/222826727610)
-        if conflict_desc: conflict_desc += "\n"
-        conflict_desc += "외향(E)/내향(I) 지표가 같아 에너지를 얻는 방식이나 사회 활동 선호도에서 유사점이 많아 갈등이 적을 수 있어요."
+        conflict_desc.append("외향(E)/내향(I) 지표가 달라 에너지를 얻는 방식이나 사회적 교류의 선호도에서 차이가 있을 수 있어요. 서로의 휴식 및 활력 충전 방식을 이해해주는 배려가 필요해요.")
+    else:
+        conflict_desc.append("외향(E)/내향(I) 지표가 같아 에너지를 얻는 방식이나 사회 활동 선호도에서 유사점이 많아 갈등이 적을 수 있어요.")
 
-    # 동성 MBTI (예: ISTJ-ISTJ)인 경우, 서로의 단점도 유사하여 갈등을 키울 가능성
+    # 동성 MBTI (예: ISTJ-ISTJ)인 경우, 오히려 단점도 유사하여 갈등을 키울 가능성
     if mbti1 == mbti2:
-        conflict_likelihood_score += 5 # 같은 유형이 오히려 특정 상황에서 더 큰 갈등을 겪을 수도 있음.
-        if conflict_desc: conflict_desc += "\n"
-        conflict_desc += "같은 유형의 강점을 공유하지만, 약점 또한 유사하여 특정 상황에서 갈등이 고조될 가능성도 있어요."
+        conflict_likelihood_score += 5
+        conflict_desc.append("같은 유형의 강점을 공유하지만, 약점 또한 유사하여 특정 상황에서 갈등이 고조될 가능성도 있어요.")
 
-    # 점수 보정 (0-100 범위로 맞추기 위해)
     conflict_likelihood_percent = min(100, conflict_likelihood_score)
+    final_conflict_desc = "\n".join(conflict_desc) # 문장들을 줄 바꿈으로 연결
 
-    return compatibility_percent, conflict_likelihood_percent, conflict_desc
+    return compatibility_percent, conflict_likelihood_percent, final_conflict_desc
 
 
 def get_mbti_compatibility_data(mbti1, mbti2, r_type):
@@ -291,7 +287,7 @@ def get_mbti_compatibility_data(mbti1, mbti2, r_type):
         "friendship_scenario": "아직 우정 시나리오가 준비되지 않았어요."
     }
 
-    # --- 대표적인 조합 예시 (이전 데이터 확장) ---
+    # --- 대표적인 조합 예시 (이전 데이터 유지) ---
     if sorted_mbti == ('ENFP', 'INTJ'):
         result["title"] = "⭐ 천생연분 시너지 조합! (통찰력과 영감의 만남)"
         result["description"] = "INTJ의 깊은 통찰력과 ENFP의 폭발적인 영감이 만나 서로에게 무한한 시너지를 선사하는 조합입니다. 서로의 부족한 점을 채워주며 함께 성장하는 데 최적화되어 있어요!"
@@ -359,5 +355,22 @@ if st.button("💖 궁합 확인하기! 💖", key="check_compatibility"):
     st.balloons() 
 
 st.write("---")
-st.markdown("""💖 MBTI 궁합은 재미와 통찰을 위한 도구입니다. 관계의 성공은 궁합 점수보다는 서로를 이해하고 소통하려는 노력에 달려있어요! 💖""")
-       
+st.markdown("""
+    <div style="text-align: center; font-size: 18px; color: #9370DB;">
+        💖 MBTI 궁합은 재미와 통찰을 위한 도구입니다. 관계의 성공은 궁합 점수보다는 서로를 이해하고 소통하려는 노력에 달려있어요! 💖
+    </div>
+    """, unsafe_allow_html=True)
+
+# --- 6. 게스트 계정 안내 ---
+st.markdown("""
+    <div style="background-color:rgba(255, 250, 240, 0.8); padding:15px; border-radius:10px; margin-top:30px; border: 1px solid #FFDAB9;">
+        <p style="font-size:16px; font-weight:bold; color:#FF8C00;">
+        ✨ 아직 게스트로 MBTI 궁합을 즐기고 계시네요! ✨
+        </p>
+        <p style="font-size:15px; color:#6A5ACD;">
+        혹시 이 멋진 궁합 탐험기를 저장하거나, 더 많은 친구들과 공유하고 싶으신가요? 
+        그렇다면 간단하게 회원가입을 해보시는 건 어떠세요? 
+        당신의 특별한 경험을 더욱 풍성하게 만들어 줄 거예요! 😊
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
