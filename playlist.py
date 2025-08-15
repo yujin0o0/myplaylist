@@ -134,91 +134,89 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- 1. 대폭 확장된 음악 데이터베이스 --- (기존 V2.0 데이터 유지 및 링크 업데이트)
-# 각 음악에는 장르, 분위기, MBTI 태그, 감정 태그를 부여합니다.
+# --- 1. 대폭 확장된 음악 데이터베이스 --- (TypeError 해결 위해 'genre' 모두 리스트로 변경)
 music_data = [
     # INFP/INFJ (깊이, 감성, 잔잔, 위로)
-    {"title": "Love Story (Taylor's Version)", "artist": "Taylor Swift", "genre": "Pop", "mood": ["희망", "감성적", "서정적"], "mbti_tags": ["ENFP", "INFP", "ESFJ"], "emotion_tags": ["설렘", "기쁨"], "youtube_link": "https://www.youtube.com/watch?v=F2T7i8T-JCI"},
-    {"title": "Hush", "artist": "Lasse Løkken", "genre": "Ambient", "mood": ["잔잔함", "평온", "몽환적"], "mbti_tags": ["INFP", "INFJ", "INTP"], "emotion_tags": ["휴식", "평온", "사색"], "youtube_link": "https://www.youtube.com/watch?v=1FfN28HHzj8"},
-    {"title": "River Flows In You", "artist": "Yiruma", "genre": "New Age", "mood": ["서정적", "감성적", "위로"], "mbti_tags": ["INFP", "INFJ", "ISFJ"], "emotion_tags": ["위로", "슬픔", "평온"], "youtube_link": "https://www.youtube.com/watch?v=s0mNfE63p3I"},
-    {"title": "Into the Unknown", "artist": "Idina Menzel, Aurora (Frozen 2)", "genre": "OST", "mood": ["웅장함", "도전", "탐험"], "mbti_tags": ["INTJ", "INFJ", "ENFJ"], "emotion_tags": ["결심", "기대", "도전"], "youtube_link": "https://www.youtube.com/watch?v=gA_oI9_i2vA"},
-    {"title": "Somewhere Only We Know", "artist": "Keane", "genre": "Alternative Rock", "mood": ["회상", "서정적", "깊이있는"], "mbti_tags": ["INFP", "INFJ"], "emotion_tags": ["슬픔", "그리움", "사색"], "youtube_link": "https://www.youtube.com/watch?v=Oextk-If8HQ"},
-    {"title": "Good Day", "artist": "IU", "genre": "K-Pop", "mood": ["희망", "긍정적", "밝음"], "mbti_tags": ["INFP", "ESFJ", "ENFP"], "emotion_tags": ["기쁨", "설렘", "활기"], "youtube_link": "https://www.youtube.com/watch?v=vT84tS5W4c4"},
-    {"title": "IU - My Sea (나의 바다)", "artist": "IU", "genre": "K-Pop", "mood": ["깊이있는", "슬픔", "위로", "웅장함"], "mbti_tags": ["INFP", "INFJ"], "emotion_tags": ["슬픔", "위로", "감동"], "youtube_link": "https://www.youtube.com/watch?v=pD4J73Hcyb0"},
-    {"title": "Mellow Yellow", "artist": "Donovan", "genre": "Folk Rock", "mood": ["자유로움", "평온", "따뜻함"], "mbti_tags": ["ISFP", "INFP"], "emotion_tags": ["휴식", "평온", "즐거움"], "youtube_link": "https://www.youtube.com/watch?v=pD2B5E21eYc"},
-
+    {"title": "Love Story (Taylor's Version)", "artist": "Taylor Swift", "genre": ["Pop"], "mood": ["희망", "감성적", "서정적"], "mbti_tags": ["ENFP", "INFP", "ESFJ"], "emotion_tags": ["설렘", "기쁨"], "youtube_link": "https://www.youtube.com/watch?v=F2T7i8T-JCI"},
+    {"title": "Hush", "artist": "Lasse Løkken", "genre": ["Ambient"], "mood": ["잔잔함", "평온", "몽환적"], "mbti_tags": ["INFP", "INFJ", "INTP"], "emotion_tags": ["휴식", "평온", "사색"], "youtube_link": "https://www.youtube.com/watch?v=1FfN28HHzj8"},
+    {"title": "River Flows In You", "artist": "Yiruma", "genre": ["New Age"], "mood": ["서정적", "감성적", "위로"], "mbti_tags": ["INFP", "INFJ", "ISFJ"], "emotion_tags": ["위로", "슬픔", "평온"], "youtube_link": "https://www.youtube.com/watch?v=s0mNfE63p3I"},
+    {"title": "Into the Unknown", "artist": "Idina Menzel, Aurora (Frozen 2)", "genre": ["OST"], "mood": ["웅장함", "도전", "탐험"], "mbti_tags": ["INTJ", "INFJ", "ENFJ"], "emotion_tags": ["결심", "기대", "도전"], "youtube_link": "https://www.youtube.com/watch?v=gA_oI9_i2vA"},
+    {"title": "Somewhere Only We Know", "artist": "Keane", "genre": ["Alternative Rock"], "mood": ["회상", "서정적", "깊이있는"], "mbti_tags": ["INFP", "INFJ"], "emotion_tags": ["슬픔", "그리움", "사색"], "youtube_link": "https://www.youtube.com/watch?v=Oextk-If8HQ"},
+    {"title": "Good Day", "artist": "IU", "genre": ["K-Pop"], "mood": ["희망", "긍정적", "밝음"], "mbti_tags": ["INFP", "ESFJ", "ENFP"], "emotion_tags": ["기쁨", "설렘", "활기"], "youtube_link": "https://www.youtube.com/watch?v=vT84tS5W4c4"},
+    {"title": "IU - My Sea (나의 바다)", "artist": "IU", "genre": ["K-Pop"], "mood": ["깊이있는", "슬픔", "위로", "웅장함"], "mbti_tags": ["INFP", "INFJ"], "emotion_tags": ["슬픔", "위로", "감동"], "youtube_link": "https://www.youtube.com/watch?v=pD4J73Hcyb0"},
+    {"title": "Mellow Yellow", "artist": "Donovan", "genre": ["Folk Rock"], "mood": ["자유로움", "평온", "따뜻함"], "mbti_tags": ["ISFP", "INFP"], "emotion_tags": ["휴식", "평온", "즐거움"], "youtube_link": "https://www.youtube.com/watch?v=pD2B5E21eYc"},
 
     # INTJ/INTP (논리, 분석, 복잡, 집중)
-    {"title": "Time", "artist": "Hans Zimmer", "genre": "Soundtrack", "mood": ["웅장함", "사색적", "집중"], "mbti_tags": ["INTJ", "INTP", "ISTJ"], "emotion_tags": ["집중", "분석", "결심"], "youtube_link": "https://www.youtube.com/watch?v=rxFk-S212gQ"},
-    {"title": "Take Five", "artist": "Dave Brubeck Quartet", "genre": "Jazz", "mood": ["논리적", "분석적", "경쾌함"], "mbti_tags": ["INTP", "INTJ", "ISTP"], "emotion_tags": ["집중", "차분", "생각"], "youtube_link": "https://www.youtube.com/watch?v=PHbL1W-4c3o"},
-    {"title": "Bohemian Rhapsody", "artist": "Queen", "genre": "Classic Rock", "mood": ["웅장함", "복잡한", "극적"], "mbti_tags": ["INTJ", "ENTJ", "INTP"], "emotion_tags": ["감탄", "고민", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ"},
-    {"title": "Adagio for Strings", "artist": "Samuel Barber", "genre": "Classical", "mood": ["웅장함", "슬픔", "사색적"], "mbti_tags": ["INTJ", "INFJ", "INTP"], "emotion_tags": ["슬픔", "위로", "사색"], "youtube_link": "https://www.youtube.com/watch?v=K2SNM4LqGjA"},
-    {"title": "Nuvole Bianche", "artist": "Ludovico Einaudi", "genre": "Modern Classical", "mood": ["사색적", "평온", "깊이있는"], "mbti_tags": ["INTP", "INFJ", "ISTJ"], "emotion_tags": ["휴식", "평온", "사색"], "youtube_link": "https://www.youtube.com/watch?v=kJvjI1WzB4w"},
-    {"title": "Lo-fi Hip Hop Beats to Study/Relax To", "artist": "ChilledCow", "genre": "Lo-fi Hip Hop", "mood": ["차분함", "집중", "평온"], "mbti_tags": ["INTP", "INTJ", "ISTJ", "ISTP"], "emotion_tags": ["집중", "평온", "휴식"], "youtube_link": "https://www.youtube.com/watch?v=5qap5aO4i9A"},
-    {"title": "Prelude in C Major", "artist": "Bach", "genre": "Classical", "mood": ["차분함", "집중", "사색적"], "mbti_tags": ["INTJ", "INTP", "ISTJ"], "emotion_tags": ["집중", "평온"], "youtube_link": "https://www.youtube.com/watch?v=P_XqR4T-xQs"},
-    {"title": "Another Brick in the Wall, Part 2", "artist": "Pink Floyd", "genre": "Progressive Rock", "mood": ["저항", "분노", "비판적"], "mbti_tags": ["INTJ", "INTP", "ENTP"], "emotion_tags": ["분노", "스트레스 해소", "사색"], "youtube_link": "https://www.youtube.com/watch?v=F3L20F8r6fU"},
+    {"title": "Time", "artist": "Hans Zimmer", "genre": ["Soundtrack"], "mood": ["웅장함", "사색적", "집중"], "mbti_tags": ["INTJ", "INTP", "ISTJ"], "emotion_tags": ["집중", "분석", "결심"], "youtube_link": "https://www.youtube.com/watch?v=rxFk-S212gQ"},
+    {"title": "Take Five", "artist": "Dave Brubeck Quartet", "genre": ["Jazz"], "mood": ["논리적", "분석적", "경쾌함"], "mbti_tags": ["INTP", "INTJ", "ISTP"], "emotion_tags": ["집중", "차분", "생각"], "youtube_link": "https://www.youtube.com/watch?v=PHbL1W-4c3o"},
+    {"title": "Bohemian Rhapsody", "artist": "Queen", "genre": ["Classic Rock"], "mood": ["웅장함", "복잡한", "극적"], "mbti_tags": ["INTJ", "ENTJ", "INTP"], "emotion_tags": ["감탄", "고민", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ"},
+    {"title": "Adagio for Strings", "artist": "Samuel Barber", "genre": ["Classical"], "mood": ["웅장함", "슬픔", "사색적"], "mbti_tags": ["INTJ", "INFJ", "INTP"], "emotion_tags": ["슬픔", "위로", "사색"], "youtube_link": "https://www.youtube.com/watch?v=K2SNM4LqGjA"},
+    {"title": "Nuvole Bianche", "artist": "Ludovico Einaudi", "genre": ["Modern Classical"], "mood": ["사색적", "평온", "깊이있는"], "mbti_tags": ["INTP", "INFJ", "ISTJ"], "emotion_tags": ["휴식", "평온", "사색"], "youtube_link": "https://www.youtube.com/watch?v=kJvjI1WzB4w"},
+    {"title": "Lo-fi Hip Hop Beats to Study/Relax To", "artist": "ChilledCow", "genre": ["Lo-fi Hip Hop"], "mood": ["차분함", "집중", "평온"], "mbti_tags": ["INTP", "INTJ", "ISTJ", "ISTP"], "emotion_tags": ["집중", "평온", "휴식"], "youtube_link": "https://www.youtube.com/watch?v=5qap5aO4i9A"},
+    {"title": "Prelude in C Major", "artist": "Bach", "genre": ["Classical"], "mood": ["차분함", "집중", "사색적"], "mbti_tags": ["INTJ", "INTP", "ISTJ"], "emotion_tags": ["집중", "평온"], "youtube_link": "https://www.youtube.com/watch?v=P_XqR4T-xQs"},
+    {"title": "Another Brick in the Wall, Part 2", "artist": "Pink Floyd", "genre": ["Progressive Rock"], "mood": ["저항", "분노", "비판적"], "mbti_tags": ["INTJ", "INTP", "ENTP"], "emotion_tags": ["분노", "스트레스 해소", "사색"], "youtube_link": "https://www.youtube.com/watch?v=F3L20F8r6fU"},
 
     # ENFJ/ESFJ (긍정, 사교, 희망, 따뜻함)
-    {"title": "Happy", "artist": "Pharrell Williams", "genre": "Pop", "mood": ["신남", "밝음", "긍정적"], "mbti_tags": ["ENFJ", "ESFJ", "ENFP", "ESFP"], "emotion_tags": ["기쁨", "활기", "즐거움"], "youtube_link": "https://www.youtube.com/watch?v=y6Sxv-sUYtM"},
-    {"title": "Don't Stop Believin'", "artist": "Journey", "genre": "Classic Rock", "mood": ["희망", "긍정적", "응원"], "mbti_tags": ["ENFJ", "ENTJ", "ESFJ"], "emotion_tags": ["활기", "극복", "동기 부여"], "youtube_link": "https://www.youtube.com/watch?v=1k8C9i2298I"},
-    {"title": "Dynamite", "artist": "BTS", "genre": "K-Pop", "mood": ["신남", "에너지", "활기참"], "mbti_tags": ["ENFJ", "ESFJ", "ENFP", "ESFP"], "emotion_tags": ["기쁨", "즐거움", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=gdZLi9oWNZg"},
-    {"title": "Heal the World", "artist": "Michael Jackson", "genre": "Pop", "mood": ["희망", "감동", "연대"], "mbti_tags": ["ENFJ", "INFJ", "ESFJ"], "emotion_tags": ["감동", "위로", "결심"], "youtube_link": "https://www.youtube.com/watch?v=kY_MvD2hQp4"},
-    {"title": "What a Wonderful World", "artist": "Louis Armstrong", "genre": "Jazz", "mood": ["평온", "감동", "희망"], "mbti_tags": ["ISFJ", "INFJ", "ENFJ"], "emotion_tags": ["평온", "감동", "희망"], "youtube_link": "https://www.youtube.com/watch?v=A3yCcXgbKrE"},
-    {"title": "Counting Stars", "artist": "OneRepublic", "genre": "Pop Rock", "mood": ["희망", "긍정적", "활기참"], "mbti_tags": ["ENFP", "ENFJ"], "emotion_tags": ["활기", "희망"], "youtube_link": "https://www.youtube.com/watch?v=hT_nvWreIhg"},
-    {"title": "Feeling Good", "artist": "Nina Simone", "genre": "Jazz", "mood": ["긍정적", "자신감", "활기참"], "mbti_tags": ["ENFJ", "ESFP"], "emotion_tags": ["기쁨", "활기", "자신감"], "youtube_link": "https://www.youtube.com/watch?v=CtM0s7X1U68"},
+    {"title": "Happy", "artist": "Pharrell Williams", "genre": ["Pop"], "mood": ["신남", "밝음", "긍정적"], "mbti_tags": ["ENFJ", "ESFJ", "ENFP", "ESFP"], "emotion_tags": ["기쁨", "활기", "즐거움"], "youtube_link": "https://www.youtube.com/watch?v=y6Sxv-sUYtM"},
+    {"title": "Don't Stop Believin'", "artist": "Journey", "genre": ["Classic Rock"], "mood": ["희망", "긍정적", "응원"], "mbti_tags": ["ENFJ", "ENTJ", "ESFJ"], "emotion_tags": ["활기", "극복", "동기 부여"], "youtube_link": "https://www.youtube.com/watch?v=1k8C9i2298I"},
+    {"title": "Dynamite", "artist": "BTS", "genre": ["K-Pop"], "mood": ["신남", "에너지", "활기참"], "mbti_tags": ["ENFJ", "ESFJ", "ENFP", "ESFP"], "emotion_tags": ["기쁨", "즐거움", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=gdZLi9oWNZg"},
+    {"title": "Heal the World", "artist": "Michael Jackson", "genre": ["Pop"], "mood": ["희망", "감동", "연대"], "mbti_tags": ["ENFJ", "INFJ", "ESFJ"], "emotion_tags": ["감동", "위로", "결심"], "youtube_link": "https://www.youtube.com/watch?v=kY_MvD2hQp4"},
+    {"title": "What a Wonderful World", "artist": "Louis Armstrong", "genre": ["Jazz"], "mood": ["평온", "감동", "희망"], "mbti_tags": ["ISFJ", "INFJ", "ENFJ"], "emotion_tags": ["평온", "감동", "희망"], "youtube_link": "https://www.youtube.com/watch?v=A3yCcXgbKrE"},
+    {"title": "Counting Stars", "artist": "OneRepublic", "genre": ["Pop Rock"], "mood": ["희망", "긍정적", "활기참"], "mbti_tags": ["ENFP", "ENFJ"], "emotion_tags": ["활기", "희망"], "youtube_link": "https://www.youtube.com/watch?v=hT_nvWreIhg"},
+    {"title": "Feeling Good", "artist": "Nina Simone", "genre": ["Jazz"], "mood": ["긍정적", "자신감", "활기참"], "mbti_tags": ["ENFJ", "ESFP"], "emotion_tags": ["기쁨", "활기", "자신감"], "youtube_link": "https://www.youtube.com/watch?v=CtM0s7X1U68"},
 
     # ENTP/ESTP (에너지, 논쟁, 즉흥, 도전)
-    {"title": "Thunder", "artist": "Imagine Dragons", "genre": "Alternative Rock", "mood": ["강렬함", "에너지", "도전"], "mbti_tags": ["ENTJ", "ESTP", "ENTP"], "emotion_tags": ["활기", "극복", "분노 해소"], "youtube_link": "https://www.youtube.com/watch?v=fK6GkQ0D6s0"},
-    {"title": "Uptown Funk", "artist": "Mark Ronson ft. Bruno Mars", "genre": "Funk", "mood": ["경쾌함", "신남", "유쾌함"], "mbti_tags": ["ENFP", "ESFP", "ESTP", "ENTP"], "emotion_tags": ["기쁨", "즐거움", "활기"], "youtube_link": "https://www.youtube.com/watch?v=OPf0YbXq6IQ"},
-    {"title": "Stronger", "artist": "Kanye West", "genre": "Hip Hop", "mood": ["자신감", "강렬함", "도전"], "mbti_tags": ["ENTJ", "ESTP", "ENTP"], "emotion_tags": ["동기 부여", "결심", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=_S62s_d8l_g"},
-    {"title": "Bad Guy", "artist": "Billie Eilish", "genre": "Pop", "mood": ["독특한", "실험적인", "시크"], "mbti_tags": ["ENTP", "INTP", "ISTP"], "emotion_tags": ["자신감", "재미", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=DyDfgMOUjCI"},
-    {"title": "Flight of the Bumblebee", "artist": "Nikolai Rimsky-Korsakov", "genre": "Classical", "mood": ["빠른 템포", "활기참", "흥분"], "mbti_tags": ["ENTP", "ESTP"], "emotion_tags": ["활기", "재미", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=aYAJbeX7gQo"},
-    {"title": "Old Town Road", "artist": "Lil Nas X ft. Billy Ray Cyrus", "genre": "Country Trap", "mood": ["독특한", "경쾌함", "유쾌함"], "mbti_tags": ["ENTP", "ENFP", "ESFP"], "emotion_tags": ["즐거움", "활기", "재미"], "youtube_link": "https://www.youtube.com/watch?v=wzzJ-aN5n9o"},
-    {"title": "Mr. Brightside", "artist": "The Killers", "genre": "Alternative Rock", "mood": ["활기참", "회상", "열정"], "mbti_tags": ["ENFP", "ESTP"], "emotion_tags": ["즐거움", "스트레스 해소", "활기"], "youtube_link": "https://www.youtube.com/watch?v=gJVTd2Q-g-c"},
-    {"title": "Buttercup", "artist": "Jack Stauber", "genre": "Indie Pop", "mood": ["독특한", "기묘한", "유쾌함"], "mbti_tags": ["INTP", "ENTP", "ISFP"], "emotion_tags": ["재미", "유쾌함"], "youtube_link": "https://www.youtube.com/watch?v=gT55zI-kH60"},
+    {"title": "Thunder", "artist": "Imagine Dragons", "genre": ["Alternative Rock"], "mood": ["강렬함", "에너지", "도전"], "mbti_tags": ["ENTJ", "ESTP", "ENTP"], "emotion_tags": ["활기", "극복", "분노 해소"], "youtube_link": "https://www.youtube.com/watch?v=fK6GkQ0D6s0"},
+    {"title": "Uptown Funk", "artist": "Mark Ronson ft. Bruno Mars", "genre": ["Funk"], "mood": ["경쾌함", "신남", "유쾌함"], "mbti_tags": ["ENFP", "ESFP", "ESTP", "ENTP"], "emotion_tags": ["기쁨", "즐거움", "활기"], "youtube_link": "https://www.youtube.com/watch?v=OPf0YbXq6IQ"},
+    {"title": "Stronger", "artist": "Kanye West", "genre": ["Hip Hop"], "mood": ["자신감", "강렬함", "도전"], "mbti_tags": ["ENTJ", "ESTP", "ENTP"], "emotion_tags": ["동기 부여", "결심", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=_S62s_d8l_g"},
+    {"title": "Bad Guy", "artist": "Billie Eilish", "genre": ["Pop"], "mood": ["독특한", "실험적인", "시크"], "mbti_tags": ["ENTP", "INTP", "ISTP"], "emotion_tags": ["자신감", "재미", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=DyDfgMOUjCI"},
+    {"title": "Flight of the Bumblebee", "artist": "Nikolai Rimsky-Korsakov", "genre": ["Classical"], "mood": ["빠른 템포", "활기참", "흥분"], "mbti_tags": ["ENTP", "ESTP"], "emotion_tags": ["활기", "재미", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=aYAJbeX7gQo"},
+    {"title": "Old Town Road", "artist": "Lil Nas X ft. Billy Ray Cyrus", "genre": ["Country Trap"], "mood": ["독특한", "경쾌함", "유쾌함"], "mbti_tags": ["ENTP", "ENFP", "ESFP"], "emotion_tags": ["즐거움", "활기", "재미"], "youtube_link": "https://www.youtube.com/watch?v=wzzJ-aN5n9o"},
+    {"title": "Mr. Brightside", "artist": "The Killers", "genre": ["Alternative Rock"], "mood": ["활기참", "회상", "열정"], "mbti_tags": ["ENFP", "ESTP"], "emotion_tags": ["즐거움", "스트레스 해소", "활기"], "youtube_link": "https://www.youtube.com/watch?v=gJVTd2Q-g-c"},
+    {"title": "Buttercup", "artist": "Jack Stauber", "genre": ["Indie Pop"], "mood": ["독특한", "기묘한", "유쾌함"], "mbti_tags": ["INTP", "ENTP", "ISFP"], "emotion_tags": ["재미", "유쾌함"], "youtube_link": "https://www.youtube.com/watch?v=gT55zI-kH60"},
 
 
     # ISTJ/ISFJ (현실적, 안정적, 차분함)
-    {"title": "Moon River", "artist": "Audrey Hepburn", "genre": "Jazz", "mood": ["평온", "서정적", "향수"], "mbti_tags": ["ISTJ", "ISFJ", "INFJ"], "emotion_tags": ["휴식", "평온", "위로"], "youtube_link": "https://www.youtube.com/watch?v=L2G9Y4iVbH4"},
-    {"title": "Weightless", "artist": "Marconi Union", "genre": "Ambient", "mood": ["최고의 이완", "평온", "휴식"], "mbti_tags": ["ISTJ", "ISFJ", "INFP"], "emotion_tags": ["휴식", "평온", "안정"], "youtube_link": "https://www.youtube.com/watch?v=oV8qS7x2l8o"},
-    {"title": "Hymn for the Weekend", "artist": "Coldplay", "genre": "Pop", "mood": ["긍정적", "활기참", "따뜻함"], "mbti_tags": ["ISFJ", "ESFJ", "ENFJ"], "emotion_tags": ["기쁨", "희망", "활기"], "youtube_link": "https://www.youtube.com/watch?v=YfW54_j0m0M"},
-    {"title": "Fix You", "artist": "Coldplay", "genre": "Alternative Rock", "mood": ["위로", "감성적", "서정적"], "mbti_tags": ["ISFJ", "INFJ", "INFP"], "emotion_tags": ["위로", "슬픔", "공감"], "youtube_link": "https://www.youtube.com/watch?v=p4vW7gUeF-U"},
-    {"title": "What a Wonderful World", "artist": "Louis Armstrong", "genre": "Jazz", "mood": ["평온", "감동", "희망"], "mbti_tags": ["ISFJ", "INFJ", "ENFJ"], "emotion_tags": ["평온", "감동", "희망"], "youtube_link": "https://www.youtube.com/watch?v=A3yCcXgbKrE"},
-    {"title": "My Heart Will Go On", "artist": "Celine Dion", "genre": "Pop Ballad", "mood": ["애절함", "슬픔", "웅장함"], "mbti_tags": ["ISFJ", "INFJ", "ESFJ"], "emotion_tags": ["슬픔", "위로", "감동"], "youtube_link": "https://www.youtube.com/watch?v=FHG7wO-35j0"},
-    {"title": "Africa", "artist": "Toto", "genre": "Pop Rock", "mood": ["향수", "웅장함", "감성적"], "mbti_tags": ["ISTJ", "ISFJ", "INFP"], "emotion_tags": ["평온", "그리움", "사색"], "youtube_link": "https://www.youtube.com/watch?v=FTQbiNxpjmY"},
-    {"title": "The Office Theme Song", "artist": "Jay Ferguson", "genre": "OST", "mood": ["경쾌함", "일상", "유쾌함"], "mbti_tags": ["ISTJ", "ENTP"], "emotion_tags": ["평온", "유쾌함"], "youtube_link": "https://www.youtube.com/watch?v=F_SmmjD5X7M"},
+    {"title": "Moon River", "artist": "Audrey Hepburn", "genre": ["Jazz"], "mood": ["평온", "서정적", "향수"], "mbti_tags": ["ISTJ", "ISFJ", "INFJ"], "emotion_tags": ["휴식", "평온", "위로"], "youtube_link": "https://www.youtube.com/watch?v=L2G9Y4iVbH4"},
+    {"title": "Weightless", "artist": "Marconi Union", "genre": ["Ambient"], "mood": ["최고의 이완", "평온", "휴식"], "mbti_tags": ["ISTJ", "ISFJ", "INFP"], "emotion_tags": ["휴식", "평온", "안정"], "youtube_link": "https://www.youtube.com/watch?v=oV8qS7x2l8o"},
+    {"title": "Hymn for the Weekend", "artist": "Coldplay", "genre": ["Pop"], "mood": ["긍정적", "활기참", "따뜻함"], "mbti_tags": ["ISFJ", "ESFJ", "ENFJ"], "emotion_tags": ["기쁨", "희망", "활기"], "youtube_link": "https://www.youtube.com/watch?v=YfW54_j0m0M"},
+    {"title": "Fix You", "artist": "Coldplay", "genre": ["Alternative Rock"], "mood": ["위로", "감성적", "서정적"], "mbti_tags": ["ISFJ", "INFJ", "INFP"], "emotion_tags": ["위로", "슬픔", "공감"], "youtube_link": "https://www.youtube.com/watch?v=p4vW7gUeF-U"},
+    {"title": "What a Wonderful World", "artist": "Louis Armstrong", "genre": ["Jazz"], "mood": ["평온", "감동", "희망"], "mbti_tags": ["ISFJ", "INFJ", "ENFJ"], "emotion_tags": ["평온", "감동", "희망"], "youtube_link": "https://www.youtube.com/watch?v=A3yCcXgbKrE"},
+    {"title": "My Heart Will Go On", "artist": "Celine Dion", "genre": ["Pop Ballad"], "mood": ["애절함", "슬픔", "웅장함"], "mbti_tags": ["ISFJ", "INFJ", "ESFJ"], "emotion_tags": ["슬픔", "위로", "감동"], "youtube_link": "https://www.youtube.com/watch?v=FHG7wO-35j0"},
+    {"title": "Africa", "artist": "Toto", "genre": ["Pop Rock"], "mood": ["향수", "웅장함", "감성적"], "mbti_tags": ["ISTJ", "ISFJ", "INFP"], "emotion_tags": ["평온", "그리움", "사색"], "youtube_link": "https://www.youtube.com/watch?v=FTQbiNxpjmY"},
+    {"title": "The Office Theme Song", "artist": "Jay Ferguson", "genre": ["OST"], "mood": ["경쾌함", "일상", "유쾌함"], "mbti_tags": ["ISTJ", "ENTP"], "emotion_tags": ["평온", "유쾌함"], "youtube_link": "https://www.youtube.com/watch?v=F_SmmjD5X7M"},
 
 
     # ISTP/ISFP (독립적, 실용적, 예술적, 감성적)
-    {"title": "Stairway to Heaven", "artist": "Led Zeppelin", "genre": "Classic Rock", "mood": ["웅장함", "깊이있는", "사색적"], "mbti_tags": ["ISTP", "INTJ", "INTP"], "emotion_tags": ["사색", "몰입", "경외감"], "youtube_link": "https://www.youtube.com/watch?v=qHP0q0yI1pU"},
-    {"title": "Come Away With Me", "artist": "Norah Jones", "genre": "Jazz", "mood": ["차분함", "감성적", "편안함"], "mbti_tags": ["ISFP", "ISFJ", "INFJ"], "emotion_tags": ["휴식", "평온", "위로"], "youtube_link": "https://www.youtube.com/watch?v=tO_o-bK1Lio"},
-    {"title": "Believer", "artist": "Imagine Dragons", "genre": "Alternative Rock", "mood": ["강렬함", "에너지", "도전"], "mbti_tags": ["ESTP", "ENTJ", "ISTP"], "emotion_tags": ["활기", "동기 부여", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=gT5Bq_G0zC8"},
-    {"title": "Creep", "artist": "Radiohead", "genre": "Alternative Rock", "mood": ["고독", "우울", "깊이있는"], "mbti_tags": ["ISFP", "INFP", "INTP"], "emotion_tags": ["슬픔", "고민", "사색"], "youtube_link": "https://www.youtube.com/watch?v=XFbnZgCq1uQ"}, # Validated
-    {"title": "Sweet Child o' Mine", "artist": "Guns N' Roses", "genre": "Hard Rock", "mood": ["열정", "강렬함", "자유로움"], "mbti_tags": ["ISTP", "ESTP", "ISFP"], "emotion_tags": ["활기", "자유", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=1w7OgIMMRc4"},
+    {"title": "Stairway to Heaven", "artist": "Led Zeppelin", "genre": ["Classic Rock"], "mood": ["웅장함", "깊이있는", "사색적"], "mbti_tags": ["ISTP", "INTJ", "INTP"], "emotion_tags": ["사색", "몰입", "경외감"], "youtube_link": "https://www.youtube.com/watch?v=qHP0q0yI1pU"},
+    {"title": "Come Away With Me", "artist": "Norah Jones", "genre": ["Jazz"], "mood": ["차분함", "감성적", "편안함"], "mbti_tags": ["ISFP", "ISFJ", "INFJ"], "emotion_tags": ["휴식", "평온", "위로"], "youtube_link": "https://www.youtube.com/watch?v=tO_o-bK1Lio"},
+    {"title": "Believer", "artist": "Imagine Dragons", "genre": ["Alternative Rock"], "mood": ["강렬함", "에너지", "도전"], "mbti_tags": ["ESTP", "ENTJ", "ISTP"], "emotion_tags": ["활기", "동기 부여", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=gT5Bq_G0zC8"},
+    {"title": "Creep", "artist": "Radiohead", "genre": ["Alternative Rock"], "mood": ["고독", "우울", "깊이있는"], "mbti_tags": ["ISFP", "INFP", "INTP"], "emotion_tags": ["슬픔", "고민", "사색"], "youtube_link": "https://www.youtube.com/watch?v=XFbnZgCq1uQ"},
+    {"title": "Sweet Child o' Mine", "artist": "Guns N' Roses", "genre": ["Hard Rock"], "mood": ["열정", "강렬함", "자유로움"], "mbti_tags": ["ISTP", "ESTP", "ISFP"], "emotion_tags": ["활기", "자유", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=1w7OgIMMRc4"},
 
 
     # ESTJ/ENTJ (리더십, 추진, 에너지)
-    {"title": "We Will Rock You", "artist": "Queen", "genre": "Rock", "mood": ["웅장함", "자신감", "추진력"], "mbti_tags": ["ESTJ", "ENTJ"], "emotion_tags": ["활기", "동기 부여", "결심"], "youtube_link": "https://www.youtube.com/watch?v=04854XqcfCY"},
-    {"title": "Till I Collapse", "artist": "Eminem", "genre": "Hip Hop", "mood": ["강렬함", "도전", "끈기"], "mbti_tags": ["ENTJ", "ESTJ", "ESTP"], "emotion_tags": ["극복", "동기 부여", "분노 해소"], "youtube_link": "https://www.youtube.com/watch?v=d_kX27y1q5Y"},
-    {"title": "The Greatest Show", "artist": "Hugh Jackman (The Greatest Showman)", "genre": "Musical", "mood": ["웅장함", "쇼맨십", "자신감"], "mbti_tags": ["ENTJ", "ENFJ", "ESTJ", "ESFJ"], "emotion_tags": ["기쁨", "활기", "열정"], "youtube_link": "https://www.youtube.com/watch?v=nyWj8x3JgqA"},
-    {"title": "Lose Yourself", "artist": "Eminem", "genre": "Hip Hop", "mood": ["투지", "집중", "도전"], "mbti_tags": ["ENTJ", "ESTJ", "ISTP"], "emotion_tags": ["동기 부여", "결심", "집중"], "youtube_link": "https://www.youtube.com/watch?v=_Y_y2_sTGLI"},
-    {"title": "Eye of the Tiger", "artist": "Survivor", "genre": "Rock", "mood": ["도전", "열정", "승리"], "mbti_tags": ["ENTJ", "ESTJ", "ESTP"], "emotion_tags": ["동기 부여", "활기", "극복"], "youtube_link": "https://www.youtube.com/watch?v=Qx2Q7J8fB_I"},
-    {"title": "Old Habits Die Hard", "artist": "Mick Jagger & Dave Stewart", "genre": "Blues Rock", "mood": ["진지함", "현실적", "성숙함"], "mbti_tags": ["ISTJ", "ENTJ"], "emotion_tags": ["고민", "진지함"], "youtube_link": "https://www.youtube.com/watch?v=tI9w0aY3o6Y"},
+    {"title": "We Will Rock You", "artist": "Queen", "genre": ["Rock"], "mood": ["웅장함", "자신감", "추진력"], "mbti_tags": ["ESTJ", "ENTJ"], "emotion_tags": ["활기", "동기 부여", "결심"], "youtube_link": "https://www.youtube.com/watch?v=04854XqcfCY"},
+    {"title": "Till I Collapse", "artist": "Eminem", "genre": ["Hip Hop"], "mood": ["강렬함", "도전", "끈기"], "mbti_tags": ["ENTJ", "ESTJ", "ESTP"], "emotion_tags": ["극복", "동기 부여", "분노 해소"], "youtube_link": "https://www.youtube.com/watch?v=d_kX27y1q5Y"},
+    {"title": "The Greatest Show", "artist": "Hugh Jackman (The Greatest Showman)", "genre": ["Musical"], "mood": ["웅장함", "쇼맨십", "자신감"], "mbti_tags": ["ENTJ", "ENFJ", "ESTJ", "ESFJ"], "emotion_tags": ["기쁨", "활기", "열정"], "youtube_link": "https://www.youtube.com/watch?v=nyWj8x3JgqA"},
+    {"title": "Lose Yourself", "artist": "Eminem", "genre": ["Hip Hop"], "mood": ["투지", "집중", "도전"], "mbti_tags": ["ENTJ", "ESTJ", "ISTP"], "emotion_tags": ["동기 부여", "결심", "집중"], "youtube_link": "https://www.youtube.com/watch?v=_Y_y2_sTGLI"},
+    {"title": "Eye of the Tiger", "artist": "Survivor", "genre": ["Rock"], "mood": ["도전", "열정", "승리"], "mbti_tags": ["ENTJ", "ESTJ", "ESTP"], "emotion_tags": ["동기 부여", "활기", "극복"], "youtube_link": "https://www.youtube.com/watch?v=Qx2Q7J8fB_I"},
+    {"title": "Old Habits Die Hard", "artist": "Mick Jagger & Dave Stewart", "genre": ["Blues Rock"], "mood": ["진지함", "현실적", "성숙함"], "mbti_tags": ["ISTJ", "ENTJ"], "emotion_tags": ["고민", "진지함"], "youtube_link": "https://www.youtube.com/watch?v=tI9w0aY3o6Y"},
 
 
     # ESFP/ENFP (밝음, 사교, 즉흥, 재미)
-    {"title": "Blinding Lights", "artist": "The Weeknd", "genre": "Synth-pop", "mood": ["신남", "레트로", "파티"], "mbti_tags": ["ESFP", "ENFP", "ESTP"], "emotion_tags": ["활기", "즐거움", "설렘"], "youtube_link": "https://www.youtube.com/watch?v=4asB8b3684Y"},
-    {"title": "Shape of You", "artist": "Ed Sheeran", "genre": "Pop", "mood": ["경쾌함", "로맨틱", "편안함"], "mbti_tags": ["ENFP", "ESFP"], "emotion_tags": ["기쁨", "설렘", "즐거움"], "youtube_link": "https://www.youtube.com/watch?v=JGwWNGJdvx8"},
-    {"title": "Happier", "artist": "Marshmello & Bastille", "genre": "Electronic", "mood": ["희망", "감성적", "활기찬"], "mbti_tags": ["ENFP", "ESFP"], "emotion_tags": ["기쁨", "슬픔 (극복)", "희망"], "youtube_link": "https://www.youtube.com/watch?v=m7Bc3p0mgJA"},
-    {"title": "Butter", "artist": "BTS", "genre": "K-Pop", "mood": ["신남", "밝음", "경쾌함"], "mbti_tags": ["ESFP", "ENFP", "ESTP"], "emotion_tags": ["기쁨", "즐거움", "활기"], "youtube_link": "https://www.youtube.com/watch?v=WMXl3Ue_9tM"},
-    {"title": "How You Like That", "artist": "BLACKPINK", "genre": "K-Pop", "mood": ["강렬함", "자신감", "역동적"], "mbti_tags": ["ESTP", "ENTJ", "ESFP"], "emotion_tags": ["활기", "스트레스 해소", "자신감"], "youtube_link": "https://www.youtube.com/watch?v=ioNng23DkIM"},
-    {"title": "Dancing Queen", "artist": "ABBA", "genre": "Pop", "mood": ["즐거움", "행복", "파티"], "mbti_tags": ["ESFP", "ENFP", "ESFJ"], "emotion_tags": ["기쁨", "즐거움", "활기"], "youtube_link": "https://www.youtube.com/watch?v=xFrGuyw1V8s"},
-    {"title": "Don't Stop Me Now", "artist": "Queen", "genre": "Classic Rock", "mood": ["신남", "에너지", "활기참"], "mbti_tags": ["ENFP", "ESFP", "ESTP", "ENTJ"], "emotion_tags": ["기쁨", "활기", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=HgzGwKwLmgM"},
-    {"title": "Rolling in the Deep", "artist": "Adele", "genre": "Soul Pop", "mood": ["강렬함", "슬픔", "분노", "감성적"], "mbti_tags": ["INFJ", "ESTJ", "ESFP"], "emotion_tags": ["슬픔", "분노", "극복"], "youtube_link": "https://www.youtube.com/watch?v=yrhA308B600"},
-    {"title": "Imagine", "artist": "Ariana Grande", "genre": "Pop", "mood": ["몽환적", "감성적", "서정적"], "mbti_tags": ["INFP", "INFJ", "ISFP"], "emotion_tags": ["설렘", "사랑", "환상"], "youtube_link": "https://www.youtube.com/watch?v=wXyZ3cW_x8w"},
-    {"title": "Stressed Out", "artist": "Twenty One Pilots", "genre": "Alternative Hip Hop", "mood": ["고민", "반항", "솔직함"], "mbti_tags": ["INFP", "INTP", "ENFP"], "emotion_tags": ["스트레스 해소", "고민", "공감"], "youtube_link": "https://www.youtube.com/watch?v=pXRviuL6vFY"},
+    {"title": "Blinding Lights", "artist": "The Weeknd", "genre": ["Synth-pop"], "mood": ["신남", "레트로", "파티"], "mbti_tags": ["ESFP", "ENFP", "ESTP"], "emotion_tags": ["활기", "즐거움", "설렘"], "youtube_link": "https://www.youtube.com/watch?v=4asB8b3684Y"},
+    {"title": "Shape of You", "artist": "Ed Sheeran", "genre": ["Pop"], "mood": ["경쾌함", "로맨틱", "편안함"], "mbti_tags": ["ENFP", "ESFP"], "emotion_tags": ["기쁨", "설렘", "즐거움"], "youtube_link": "https://www.youtube.com/watch?v=JGwWNGJdvx8"},
+    {"title": "Happier", "artist": "Marshmello & Bastille", "genre": ["Electronic"], "mood": ["희망", "감성적", "활기찬"], "mbti_tags": ["ENFP", "ESFP"], "emotion_tags": ["기쁨", "슬픔 (극복)", "희망"], "youtube_link": "https://www.youtube.com/watch?v=m7Bc3p0mgJA"},
+    {"title": "Butter", "artist": "BTS", "genre": ["K-Pop"], "mood": ["신남", "밝음", "경쾌함"], "mbti_tags": ["ESFP", "ENFP", "ESTP"], "emotion_tags": ["기쁨", "즐거움", "활기"], "youtube_link": "https://www.youtube.com/watch?v=WMXl3Ue_9tM"},
+    {"title": "How You Like That", "artist": "BLACKPINK", "genre": ["K-Pop"], "mood": ["강렬함", "자신감", "역동적"], "mbti_tags": ["ESTP", "ENTJ", "ESFP"], "emotion_tags": ["활기", "스트레스 해소", "자신감"], "youtube_link": "https://www.youtube.com/watch?v=ioNng23DkIM"},
+    {"title": "Dancing Queen", "artist": "ABBA", "genre": ["Pop"], "mood": ["즐거움", "행복", "파티"], "mbti_tags": ["ESFP", "ENFP", "ESFJ"], "emotion_tags": ["기쁨", "즐거움", "활기"], "youtube_link": "https://www.youtube.com/watch?v=xFrGuyw1V8s"},
+    {"title": "Don't Stop Me Now", "artist": "Queen", "genre": ["Classic Rock"], "mood": ["신남", "에너지", "활기참"], "mbti_tags": ["ENFP", "ESFP", "ESTP", "ENTJ"], "emotion_tags": ["기쁨", "활기", "스트레스 해소"], "youtube_link": "https://www.youtube.com/watch?v=HgzGwKwLmgM"},
+    {"title": "Rolling in the Deep", "artist": "Adele", "genre": ["Soul Pop"], "mood": ["강렬함", "슬픔", "분노", "감성적"], "mbti_tags": ["INFJ", "ESTJ", "ESFP"], "emotion_tags": ["슬픔", "분노", "극복"], "youtube_link": "https://www.youtube.com/watch?v=yrhA308B600"},
+    {"title": "Imagine", "artist": "Ariana Grande", "genre": ["Pop"], "mood": ["몽환적", "감성적", "서정적"], "mbti_tags": ["INFP", "INFJ", "ISFP"], "emotion_tags": ["설렘", "사랑", "환상"], "youtube_link": "https://www.youtube.com/watch?v=wXyZ3cW_x8w"},
+    {"title": "Stressed Out", "artist": "Twenty One Pilots", "genre": ["Alternative Hip Hop"], "mood": ["고민", "반항", "솔직함"], "mbti_tags": ["INFP", "INTP", "ENFP"], "emotion_tags": ["스트레스 해소", "고민", "공감"], "youtube_link": "https://www.youtube.com/watch?v=pXRviuL6vFY"},
 
-    # ... 더 많은 음악 추가 (위 리스트에 계속 이어서 붙여넣으면 됩니다!)
+    # ... (기존 음악 데이터 그대로 유지, 'genre'만 리스트로 변경)
 ]
 
 # --- 2. MBTI별 기본 음악 취향 정의 --- (유지)
@@ -312,8 +310,9 @@ with col2:
                     if selected_mbti in music.get("mbti_tags", []): 
                         score += mbti_weight * 2 # 더 높은 점수 부여
                     
-                    # 2. 음악 데이터의 Mood/Genre 태그가 사용자의 MBTI 선호 태그와 겹치는 경우
-                    combined_music_tags = music.get("mood", []) + music.get("genre", [])
+                    # 2. 음악의 분위기/장르 태그가 사용자의 MBTI 선호 태그와 겹치는 경우
+                    # genre 값이 이제 리스트이므로 바로 연결 가능
+                    combined_music_tags = music.get("mood", []) + music.get("genre", []) 
                     for mbti_pref_tag in mbti_preferred_tags:
                         if mbti_pref_tag in combined_music_tags:
                             score += mbti_weight
@@ -333,42 +332,39 @@ with col2:
                 # 점수가 0점인 음악 제외 (겹치는 태그가 아예 없는 경우)
                 filtered_recommendations = [item for item in sorted_recommendations if item[1] > 0]
                 
-                st.subheader("🎶 **너를 위한 맞춤 음악!** 🎧")
-                if filtered_recommendations:
-                    # 상위 3개 추천 (개수 조절 가능)
-                    num_display_recommendations = min(3, len(filtered_recommendations)) 
-                    
-                    # 결과를 랜덤하게 섞어서 매번 다른 추천이 나올 수 있도록 (동점인 경우)
-                    # 동일 점수의 곡이 여러 개일 때 다양성을 위해 섞습니다.
-                    final_recommendations_shuffled = []
-                    
-                    # 점수 그룹핑
-                    scores_map = {}
-                    for title, score in filtered_recommendations:
-                        if score not in scores_map:
-                            scores_map[score] = []
-                        scores_map[score].append(title)
-                    
-                    # 점수 높은 순으로 그룹 정렬
-                    sorted_scores_keys = sorted(scores_map.keys(), reverse=True)
+                # 중복 추천 방지 및 다양성 확보를 위해 상위 몇 곡만 가져오되, 점수가 같으면 무작위 선택
+                final_recommendations_shuffled = []
+                
+                # 점수 그룹핑
+                scores_map = {}
+                for title, score in filtered_recommendations:
+                    if score not in scores_map:
+                        scores_map[score] = []
+                    scores_map[score].append(title)
+                
+                # 점수 높은 순으로 그룹 정렬
+                sorted_scores_keys = sorted(scores_map.keys(), reverse=True)
 
-                    for score in sorted_scores_keys:
-                        current_group = scores_map[score]
-                        random.shuffle(current_group) # 같은 점수 내에서 랜덤 셔플
-                        for title in current_group:
-                            final_recommendations_shuffled.append(title)
-                            if len(final_recommendations_shuffled) >= num_display_recommendations:
-                                break
-                        if len(final_recommendations_shuffled) >= num_display_recommendations:
+                for score in sorted_scores_keys:
+                    current_group = scores_map[score]
+                    random.shuffle(current_group) # 같은 점수 내에서 랜덤 셔플
+                    for title in current_group:
+                        final_recommendations_shuffled.append(title)
+                        if len(final_recommendations_shuffled) >= 3: # 최대 3곡 추천 (개수 조절 가능)
                             break
+                    if len(final_recommendations_shuffled) >= 3:
+                        break
 
+                st.subheader("🎶 **너를 위한 맞춤 음악!** 🎧")
+                if final_recommendations_shuffled:
+                    num_display_recommendations = min(3, len(final_recommendations_shuffled)) 
                     for i in range(num_display_recommendations):
                         recommended_title = final_recommendations_shuffled[i]
                         recommended_music = next((music for music in music_data if music["title"] == recommended_title), None)
                         if recommended_music:
                             st.markdown(f'<div class="recommendation-card">', unsafe_allow_html=True)
                             st.markdown(f"<h4>✨ **{i+1}. {recommended_music['title']}** - {recommended_music['artist']}</h4>", unsafe_allow_html=True)
-                            st.write(f"   💜 장르: **{recommended_music['genre']}**")
+                            st.write(f"   💜 장르: **{', '.join(recommended_music['genre'])}**") # 장르도 이제 리스트로 표시
                             st.write(f"   💫 분위기: **{', '.join(recommended_music['mood'])}**")
                             st.markdown(f"   <a href='{recommended_music['youtube_link']}' target='_blank'>▶️ 유튜브에서 듣기</a>", unsafe_allow_html=True) 
                             st.markdown('</div>', unsafe_allow_html=True)
@@ -389,4 +385,4 @@ st.sidebar.info(
 )
 st.sidebar.write("---")
 st.sidebar.write("개발자: 뤼튼 🤖")
-st.sidebar.write("최종 업데이트: 2025. 8. 15. 오후 8:14:30")
+st.sidebar.write("최종 업데이트: 2025. 8. 15. 오후 8:22:02") # 현재 시간으로 업데이트!
