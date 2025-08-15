@@ -1,33 +1,30 @@
-# mbti_mood_music_app.py
+# mbti_mood_music_simple.py
 
 import streamlit as st
-from googleapiclient.discovery import build
 
 # -------------------------
-# 유튜브 API 설정
+# 배경 이미지 설정
 # -------------------------
-YOUTUBE_API_KEY = "YOUR_YOUTUBE_API_KEY"  # 여기 본인의 API 키 입력
-youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
-
-def search_youtube(query, max_results=2):
-    try:
-        res = youtube.search().list(
-            q=query,
-            part='snippet',
-            type='video',
-            maxResults=max_results
-        ).execute()
-        return [
-            {
-                "title": item["snippet"]["title"],
-                "url": f"https://www.youtube.com/watch?v={item['id']['videoId']}",
-                "thumbnail": item["snippet"]["thumbnails"]["medium"]["url"]
-            }
-            for item in res.get("items", [])
-        ]
-    except Exception as e:
-        st.error(f"유튜브 API 요청 실패: {e}")
-        return []
+def set_background_image(url):
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("{url}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }}
+        .block-container {{
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 10px;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
 # -------------------------
 # MBTI + 기분 기반 데이터
@@ -51,62 +48,36 @@ mbti_music_data = {
     "ESFP": {"genres": ["K-pop", "댄스"], "artists": ["BTS", "Katy Perry"]}
 }
 
-mood_data = {
-    "행복한": {"keywords": ["happy", "feel good", "cheerful"]},
-    "슬픈": {"keywords": ["sad", "emotional", "melancholic"]},
-    "차분한": {"keywords": ["calm", "relaxing", "soothing"]},
-    "신나는": {"keywords": ["energetic", "hype", "upbeat"]}
+mood_songs = {
+    "행복한": ["Happy - Pharrell Williams", "Can't Stop the Feeling - Justin Timberlake"],
+    "슬픈": ["Someone Like You - Adele", "Fix You - Coldplay"],
+    "차분한": ["Weightless - Marconi Union", "River Flows in You - Yiruma"],
+    "신나는": ["Levitating - Dua Lipa", "Uptown Funk - Bruno Mars"]
 }
 
 # -------------------------
-# 배경 이미지 설정
+# Streamlit 앱 시작
 # -------------------------
-def set_background_image(url):
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-image: url("{url}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+st.set_page_config(page_title="MBTI + 기분 음악 추천기", layout="centered")
+set_background_image("https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=1350&q=80")
 
-# -------------------------
-# Streamlit UI 시작
-# -------------------------
-st.set_page_config(page_title="MBTI + 기분 노래 추천기", layout="centered")
-set_background_image("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1350&q=80")
-
-st.markdown("<h1 style='text-align: center; color: white;'>🎧 MBTI + 기분 기반 음악 추천기</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #eeeeee;'>당신의 성격과 현재 기분에 어울리는 노래를 추천해드릴게요!</p>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>🎧 MBTI + 기분 음악 추천기</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>당신의 성격과 현재 기분에 어울리는 노래를 추천해드릴게요!</p>", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
 
 # 사용자 입력
-mbti = st.selectbox("MBTI를 선택하세요:", list(mbti_music_data.keys()))
-mood = st.radio("현재 기분은 어떤가요?", list(mood_data.keys()))
+mbti = st.selectbox("당신의 MBTI는 무엇인가요?", list(mbti_music_data.keys()))
+mood = st.radio("지금 기분은 어떤가요?", list(mood_songs.keys()))
 
-if st.button("🎶 노래 추천받기"):
-    # 추천 키워드 생성
-    mbti_info = mbti_music_data[mbti]
-    mood_keywords = mood_data[mood]["keywords"]
-    query = f"{mbti_info['genres'][0]} {mood_keywords[0]} music"
+# 추천 결과
+if mbti and mood:
+    info = mbti_music_data[mbti]
+    songs = mood_songs[mood]
 
-    st.subheader(f"🎼 {mbti} + {mood} 기분에 어울리는 음악")
-    st.markdown(f"**추천 장르:** {', '.join(mbti_info['genres'])}")
-    st.markdown(f"**추천 아티스트:** {', '.join(mbti_info['artists'])}")
+    st.markdown("## 🎼 추천 결과")
 
-    st.write("---")
-    st.subheader("📺 추천 유튜브 영상")
-    results = search_youtube(query)
-
-    if results:
-        for r in results:
-            st.markdown(f"**{r['title']}**")
-            st.video(r["url"])
-    else:
-        st.warning("추천 영상을 불러오지 못했습니다.")
-
+    st.write(f"**🎧 MBTI({mbti})에게 어울리는 장르:** {', '.join(info['genres'])}")
+    st.write(f"**🎤 추천 아티스트:** {', '.join(info['artists'])}")
+    st.write(f"**😊 '{mood}' 기분일 때 어울리는 노래:**")
+    for song in songs:
+        st.markdown(f"- {song}")
