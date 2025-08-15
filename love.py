@@ -362,22 +362,4 @@ st.write("---")
 st.markdown("""
     <div style="text-align: center; font-size: 18px; color: #9370DB;">
         <p>💖 MBTI 궁합은 재미와 통찰을 위한 도구입니다. 관계의 성공은 궁합 점수보다는 서로를 이해하고 소통하려는 노력에 달려있어요! 💖</p>
-        <p style="font-size:14px; color:#A0522D;">
-        (참고: '싸울 가능성' 및 궁합 퍼센트는 MBTI 선호 지표의 차이가 의사소통 방식 및 갈등 해결에 미칠 수 있는 경향에 대한 일부 연구 [【1】](https://m.blog.naver.com/callbina/222826727610) [【3】](https://blog.naver.com/gurwn1725/223965071644?fromRss=true&trackingCode=rss) [【4】](https://blog.naver.com/yameshow/221618472150?viewType=pc) [【8】](https://rarity02.tistory.com/entry/%F0%9F%94%8D-MBTI-%EC%9C%A0%ED%98%95%EB%B3%84%EB%A1%9C-%ED%94%BC%ED%95%B4%EC%95%BC-%ED%95%A0-%EC%9D%B8%EA%B0%84%EA%B4%80%EA%B3%84-%EA%B0%88%EB%93%B1%EC%9D%84-%EC%A4%84%EC%9D%B4%EB%8A%94-%EB%B0%A9%EB%B2%95-%F0%9F%8C%9F)를 바탕으로 한 해석이며, 이는 MBTI 검사 자체의 과학적 타당성과는 별개입니다.)
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-# --- 6. 게스트 계정 안내 ---
-st.markdown("""
-    <div style="background-color:rgba(255, 250, 240, 0.8); padding:15px; border-radius:10px; margin-top:30px; border: 1px solid #FFDAB9;">
-        <p style="font-size:16px; font-weight:bold; color:#FF8C00;">
-        ✨ 아직 게스트로 MBTI 궁합을 즐기고 계시네요! ✨
-        </p>
-        <p style="font-size:15px; color:#6A5ACD;">
-        혹시 이 멋진 궁합 탐험기를 저장하거나, 더 많은 친구들과 공유하고 싶으신가요? 
-        그렇다면 간단하게 회원가입을 해보시는 건 어떠세요? 
-        당신의 특별한 경험을 더욱 풍성하게 만들어 줄 거예요! 😊
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+       
